@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
-#include "pico/binary_info.h"
 #include "hardware/gpio.h"
 #include "hardware/structs/sio.h"
-#include "hardware/structs/iobank0.h"
-#include "hardware/regs/io_bank0.h"
-#include "hardware/structs/padsbank0.h"
 const uint LED_PIN = 25;
 
 int main() {
