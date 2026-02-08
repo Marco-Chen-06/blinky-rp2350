@@ -1,31 +1,49 @@
 cmake_minimum_required(VERSION 3.13)
 include(pico_sdk_import.cmake)
-project(blink_uart_project C CXX ASM)
+
+project(blinky-rp2350-project C CXX ASM)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 pico_sdk_init()
 
-# make a executable for blink.c
-add_executable(blink
-    blink.c
+# force no optimizations
+set(PICO_DEOPTIMIZED_DEBUG 1)
+
+add_executable(blinky
+    blinky.c
 )
 
-pico_enable_stdio_usb(blink 1)
-
-target_link_libraries(blink
-    pico_stdlib      
-    hardware_gpio    
-    hardware_timer    
+target_link_libraries(blinky
+    pico_stdlib
+    hardware_gpio
+    hardware_timer
+    hardware_resets
+    hardware_clocks
 )
 
-# also generate uf2 and elf and bin and map files
-pico_add_extra_outputs(blink)
+pico_enable_stdio_usb(blinky 0)
+pico_enable_stdio_uart(blinky 0)
 
-#add debug info
-target_compile_definitions(blink PRIVATE PICO_DEBUG=1)
-target_compile_options(blink PRIVATE -g3)
+pico_add_extra_outputs(blinky)
 
-# cmake debugging text
-message(STATUS "Building blink project for ${PICO_PLATFORM} (${PICO_BOARD})")
+target_compile_definitions(blinky PRIVATE
+    PICO_RP2350=1
+    PICO_DEBUG=1
+)
+
+# be explicit about using rp2350
+target_include_directories(blinky PRIVATE
+    ${PICO_SDK_PATH}/src/rp2350/hardware_regs/include
+    ${PICO_SDK_PATH}/src/rp2350/hardware_structs/include
+)
+
+# remove optimization for debugging
+target_compile_options(blinky PRIVATE
+    -g3
+    -O0
+    -fno-inline
+)
