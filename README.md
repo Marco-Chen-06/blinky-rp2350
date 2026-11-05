@@ -1,19 +1,17 @@
 # blinky-rp2350
 personal reference for blinking an led with half bare metal pico sdk
 
-### Building
+## Building
 ```
 mkdir build
 cd build
 cmake ..
 make
 ```
-
-#### Debugging
+## How to Use
+### In one terminal:
 `sudo openocd`
 
-#### Flash:
-`gdb -ex flash`
-
-#### Debug:
-`gdb -ex Debug`
+### In second terminal:
+#### Flash: `gdb -ex flash`
+#### Debug: `gdb -ex debug`
