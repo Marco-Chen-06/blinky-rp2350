@@ -5,6 +5,7 @@ personal reference for blinking an led with half bare metal pico sdk
 ```
 mkdir build
 cd build
+cmake ..
 make
 ```
 
