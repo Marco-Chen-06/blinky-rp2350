@@ -1,5 +1,5 @@
 # blinky-rp2350
-personal reference for blinking an led with half bare metal pico sdk
+blink an LED using 2-pico openocd setup
 
 ## Building
 ```
@@ -13,5 +13,9 @@ make
 `sudo openocd`
 
 ### In second terminal:
-#### Flash: `gdb -ex flash`
-#### Debug: `gdb -ex debug`
+#### Flash: 
+`gdb -ex flash`
+
+#### Debug: 
+`gdb -ex debug`
+
