@@ -13,8 +13,9 @@ int main() {
     while (1) {
         printf("hello world\r\n");
         sio_hw->gpio_set = (1u << LED_PIN);
-        sleep_ms(250);
+        sleep_ms(1000);
         sio_hw->gpio_clr = (1u << LED_PIN);
-        sleep_ms(250);
+        sleep_ms(1000);
     }
 }
+

@@ -1,4 +1,12 @@
 cmake_minimum_required(VERSION 3.13)
+
+set(PICO_BOARD pico2)
+
+# default to debug build
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
+endif()
+
 include(pico_sdk_import.cmake)
 
 project(blinky-rp2350-project C CXX ASM)
@@ -8,10 +16,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-pico_sdk_init()
-
-# force no optimizations
+# force no optimizations (must be before pico_sdk_init)
 set(PICO_DEOPTIMIZED_DEBUG 1)
+
+pico_sdk_init()
 
 add_executable(blinky
     blinky.c
@@ -20,30 +28,9 @@ add_executable(blinky
 target_link_libraries(blinky
     pico_stdlib
     hardware_gpio
-    hardware_timer
-    hardware_resets
-    hardware_clocks
 )
 
 pico_enable_stdio_usb(blinky 0)
 pico_enable_stdio_uart(blinky 1)
 
 pico_add_extra_outputs(blinky)
-
-target_compile_definitions(blinky PRIVATE
-    PICO_RP2350=1
-    PICO_DEBUG=1
-)
-
-# be explicit about using rp2350
-target_include_directories(blinky PRIVATE
-    ${PICO_SDK_PATH}/src/rp2350/hardware_regs/include
-    ${PICO_SDK_PATH}/src/rp2350/hardware_structs/include
-)
-
-# remove optimization for debugging
-target_compile_options(blinky PRIVATE
-    -g3
-    -O0
-    -fno-inline
-)
