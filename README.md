@@ -2,10 +2,12 @@
 personal reference for blinking an led with half bare metal pico sdk
 
 ### Building
-```mkdir build
+```
+mkdir build
 cd build
 make
-make flash```
+make flash
+```
 
 #### Debugging
 `sudo openocd`
