@@ -7,7 +7,7 @@ cd build
 make
 make flash```
 
-### Debugging
+#### Debugging
 `sudo openocd`
 
 #### Flash:
